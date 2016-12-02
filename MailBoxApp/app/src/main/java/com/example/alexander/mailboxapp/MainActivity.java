@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Flow: Step 1: Initialize Main activity
+        // Tie activity to res/layout/auth.xml
         super.onCreate(savedInstanceState);
         setContentView(R.layout.auth);
 
@@ -23,22 +25,30 @@ public class MainActivity extends AppCompatActivity {
 
     public void authenticate(View view) {
         // Get username and password
-        //myActivity.this.mEdit.getText().toString()
+        // Flow: Step 2: Get username and password
+
         EditText etUsername = (EditText)findViewById(R.id.username);
         EditText etPassword = (EditText)findViewById(R.id.password);
 
         sUsername = etUsername.getText().toString().trim();
         sPassword  = etPassword.getText().toString().trim();
         // TODO
+
+        // Flow: Step 3: Authenticate
         // API Calls and whatnot
 
+        // Flow: Step 4: Navigate to Inbox
+        // Get username and password and send those strings to
+        // inbox in case they are used for further API calls
+        // The same logic would work with an OAUTH Token
         Button btnAuthenticate = (Button) findViewById(R.id.authenticate_button);
         btnAuthenticate.setTextColor(1);
         Intent newIntent = new Intent(MainActivity.this, InboxActivity.class);
 
+        // Flow: Step 4: A Pass data as extras to next Activity, InboxActivity
         newIntent.putExtra("username",sUsername);
         newIntent.putExtra("password",sPassword);
-        startActivity(newIntent);
+        startActivity(newIntent); //Go to Inbox
     }
 
 } // End main activity

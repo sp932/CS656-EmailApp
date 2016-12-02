@@ -25,7 +25,14 @@
         <!-- Compose activity -->
         <activity android:name=".ComposeActivity">
             <intent-filter>
-                <action android:name="android.intent.action.INBOX" />
+                <action android:name="android.intent.action.COMPOSE" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!-- Compose activity -->
+        <activity android:name=".ReadActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.READ" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

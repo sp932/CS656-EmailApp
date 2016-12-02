@@ -6,9 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -19,8 +21,11 @@ public class InboxActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Flow: Step 5: Match InboxActivity to inbox.xml
         setContentView(R.layout.inbox);
 
+        // Flow: Step 6: Get username and password from
+        // Flow: 4b
         sUsername = getIntent().getStringExtra("username");
         sPassword = getIntent().getStringExtra("password");
 
@@ -32,10 +37,32 @@ public class InboxActivity extends AppCompatActivity {
 
         ArrayList<String> emailList = populateEmail(); // This method will be heavily fleshed out
         ArrayAdapter<String> emailsAdapter =
-                new ArrayAdapter<String>(this, R.layout.list_item, emailList);
+                new ArrayAdapter<String>(this, R.layout.list_item2, R.id.list_text, emailList);
 
 
         inBox.setAdapter(emailsAdapter);
+
+        // Flow: Step 6: Make inBox clickable and handle click events
+
+        class ClickHandler implements AdapterView.OnItemClickListener {
+            public void onItemClick(AdapterView<?> adapter, View view, int position, long arg3) {
+                TextView emailItem = (TextView) view.findViewById(R.id.list_text);
+                String emailItemText = emailItem.getText().toString();
+
+
+                Intent newIntent = new Intent(InboxActivity.this, ReadActivity.class);
+
+                // Flow: Step 7: Open ReadActivity and pass information to it
+                newIntent.putExtra("username",sUsername);
+                newIntent.putExtra("password",sPassword);
+                newIntent.putExtra("emailItemText",emailItemText);
+                startActivity(newIntent);
+
+            }
+        } // End inner-Class ClickHandler
+
+        inBox.setOnItemClickListener(new ClickHandler());
+
     } // End onCreate
 
     public ArrayList populateEmail() {
@@ -55,9 +82,11 @@ public class InboxActivity extends AppCompatActivity {
     } // End populate email
 
     public void toCompose(View view) {
+
         // TODO
         // API Calls and whatnot
 
+        // Flow: Step 8: Open Compose activity and pass information to it
         Button btnGoToCompose = (Button) findViewById(R.id.to_compose);
         btnGoToCompose.setTextColor(1);
         Intent newIntent = new Intent(InboxActivity.this, ComposeActivity.class);
@@ -65,6 +94,19 @@ public class InboxActivity extends AppCompatActivity {
         newIntent.putExtra("username",sUsername);
         newIntent.putExtra("password",sPassword);
         startActivity(newIntent);
+    } // End toCompose
+
+    public void toRead(View view) {
+        // TODO
+        // API Calls and whatnot
+
+//        Button btnGoToRead = (Button) findViewById(R.id.text1);
+//        btnGoToRead.setTextColor(1);
+//        Intent newIntent = new Intent(InboxActivity.this, ReadActivity.class);
+
+//        newIntent.putExtra("username",sUsername);
+//        newIntent.putExtra("password",sPassword);
+//        startActivity(newIntent);
     } // End toCompose
 
     public void Quit(View View) {
