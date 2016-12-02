@@ -12,10 +12,11 @@
     tools:context="com.example.alexander.mailboxapp.MainActivity">
 
     <Button
-        android:id="@+id/compose"
+        android:id="@+id/to_compose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Compose Mail" />
+        android:text="Compose Mail"
+        android:onClick="toCompose"/>
 
     <ListView
         android:id="@+id/messages"
@@ -27,7 +28,12 @@
         android:layout_alignParentStart="true">
     </ListView>
 
-
+    <Button
+        android:id="@+id/quit_from_inbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Quit"
+        android:onClick="Quit"/>
 
 
 </LinearLayout>
